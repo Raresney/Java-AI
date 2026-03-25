@@ -1,0 +1,1 @@
+"c:\lang\Java\jdk\bin\javac" -classpath svm; svm\SVM.java >erori.txt 2>&1

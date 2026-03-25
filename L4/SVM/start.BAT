@@ -1,0 +1,1 @@
+"c:\Lang\Java\jdk\bin\java" -Xmx1024m -classpath svm; svm.SVM >log.txt 2>&1
