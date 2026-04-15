@@ -6,12 +6,12 @@ erori.txt
 log.txt
 sources.txt
 
-# Modele serializate (se genereaza local prin antrenare)
-*.ser
+# Sursa raw ORL (prea mare, se reobtine via git clone daca e nevoie)
+downloads/
 
 # Imaginile de invatare pentru recunoastere NU se livreaza in arhiva finala
 # (cerinta 7 enunt); le excludem si din git.
 invatare_fete/*/
 
-# Imagini brute descarcate (daca utilizatorul le pune aici temporar)
+# Imagini brute descarcate de utilizator in AnnotatorPanel (daca pune acolo)
 invatare_cap/raw/

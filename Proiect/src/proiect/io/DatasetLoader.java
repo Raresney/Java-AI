@@ -21,8 +21,12 @@ public final class DatasetLoader {
 
     private DatasetLoader() {}
 
-    /** Rezultatul incarcarii: vectori X, etichete y. */
-    public static class Set {
+    /**
+     * Rezultatul incarcarii: vectori X, etichete y.
+     * Implementeaza Serializable pentru cerinta 6/7 (livrarea vectorilor HOG).
+     */
+    public static class Set implements java.io.Serializable {
+        private static final long serialVersionUID = 1L;
         public final double[][] X;
         public final int[] y;
         public Set(double[][] X, int[] y) { this.X = X; this.y = y; }
