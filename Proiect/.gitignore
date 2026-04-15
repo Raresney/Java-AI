@@ -1,0 +1,17 @@
+# Artefacte de build Java
+*.class
+
+# Output redirectat al BAT-urilor
+erori.txt
+log.txt
+sources.txt
+
+# Modele serializate (se genereaza local prin antrenare)
+*.ser
+
+# Imaginile de invatare pentru recunoastere NU se livreaza in arhiva finala
+# (cerinta 7 enunt); le excludem si din git.
+invatare_fete/*/
+
+# Imagini brute descarcate (daca utilizatorul le pune aici temporar)
+invatare_cap/raw/
