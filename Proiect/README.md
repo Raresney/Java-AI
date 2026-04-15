@@ -105,4 +105,4 @@ The Sigmoid kernel is still used for per-person recognition classifiers
 
 ## Author
 
-Bighiu Rareș (group 534)
+Bighiu Rares

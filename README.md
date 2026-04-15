@@ -50,4 +50,4 @@ Sample datasets are included in each project's `data/` folder. Additional datase
 
 ## Author
 
-[Raresney](https://github.com/Raresney)
+Bighiu Rares
