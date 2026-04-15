@@ -15,6 +15,9 @@ Binary classifier using the **Median method**. Computes class centroids, derives
 ### [Perceptron-Classifier](./Perceptron-Classifier)
 Binary classifier using the **Perceptron learning algorithm**. Iteratively adjusts weights until convergence, with a configurable learning rate. Supports pause/resume during training so the decision boundary can be inspected mid-iteration.
 
+### [Proiect](./Proiect)
+End-to-end **face detection and recognition** system built from scratch: HOG feature extractor, SMO optimizer with Sigmoid/Linear/RBF kernels, sliding-window detector with image pyramid and Non-Maximum Suppression, Swing GUI, and live webcam testing. Pure Java — OpenCV is used only for camera access and drawing rectangles.
+
 ## How to Run
 
 Each project follows the same structure. From a project's `SVM/` directory:

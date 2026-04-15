@@ -42,17 +42,30 @@ public class HeadDetector {
     /** Pragul IoU peste care doua detectii sunt considerate duplicate. */
     private final double nmsIoU;
 
+    /** Scorul minim pentru a considera o fereastra "cap". Filtreaza slabele. */
+    private final double scorMinim;
+
+    /** Dimensiunea maxima a unui patrat in imaginea originala (in pixeli).
+     *  Evita detectiile nerealist de mari (ex. fata de 500px intr-un frame 640x480). */
+    private final int laturaMaxima;
+
     public HeadDetector(SVMClassifier svm, HOG hog) {
-        this(svm, hog, 8, 1.2, 0.3);
+        // Valori implicite: prag 0.5 pe decizie, max 192px latura (pe o camera
+        // 320x240 o fata e rar mai mare de ~180px), stride 16 (compromis
+        // viteza/acoperire), scaleStep 1.3 (piramida mai scurta => mai rapid), IoU 0.3.
+        this(svm, hog, 16, 1.3, 0.3, 0.5, 192);
     }
 
     public HeadDetector(SVMClassifier svm, HOG hog,
-                        int stride, double scaleStep, double nmsIoU) {
+                        int stride, double scaleStep, double nmsIoU,
+                        double scorMinim, int laturaMaxima) {
         this.svm = svm;
         this.hog = hog;
         this.stride = stride;
         this.scaleStep = scaleStep;
         this.nmsIoU = nmsIoU;
+        this.scorMinim = scorMinim;
+        this.laturaMaxima = laturaMaxima;
     }
 
     /**
@@ -67,8 +80,12 @@ public class HeadDetector {
         int[][] nivelCurent = gray;
         double factor = 1.0; // cat de mic e nivelul curent fata de original
 
-        // Coboram in piramida cat timp imaginea e mai mare decat fereastra.
-        while (nivelCurent.length >= WINDOW && nivelCurent[0].length >= WINDOW) {
+        // Coboram in piramida cat timp imaginea e mai mare decat fereastra
+        // SI cat timp dimensiunea efectiva a ferestrei in imaginea originala
+        // nu depaseste laturaMaxima (evita detectii nerealist de mari si reduce
+        // numarul de niveluri piramidale = mai rapid).
+        while (nivelCurent.length >= WINDOW && nivelCurent[0].length >= WINDOW
+                && WINDOW * factor <= laturaMaxima) {
             scaneazaNivel(nivelCurent, factor, candidati);
 
             // Scalam pentru nivelul urmator.
@@ -112,9 +129,9 @@ public class HeadDetector {
                 double[] feat = hog.extrage(fereastra);
                 double scor = svm.decision(feat);
 
-                // Daca SVM-ul zice "cap" (scor > 0), convertim coordonatele
-                // inapoi la sistemul imaginii originale.
-                if (scor > 0) {
+                // Pastram doar ferestrele cu scor peste pragul configurat
+                // (scorMinim > 0 = filtreaza detectiile slabe si accelereaza NMS).
+                if (scor > scorMinim) {
                     int xOrig = (int) (x * factor);
                     int yOrig = (int) (y * factor);
                     int latOrig = (int) (WINDOW * factor);

@@ -2,8 +2,8 @@
 REM Lansare aplicatie. Adauga -Djava.library.path pentru DLL-ul nativ OpenCV.
 
 set JDK="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin\java.exe"
-set OPENCV_JAR=C:\Users\bighi\Downloads\opencv\build\java\opencv-4100.jar
-set OPENCV_DLL_DIR=C:\Users\bighi\Downloads\opencv\build\java\x64
+set OPENCV_JAR=%USERPROFILE%\Downloads\opencv\build\java\opencv-4100.jar
+set OPENCV_DLL_DIR=%USERPROFILE%\Downloads\opencv\build\java\x64
 
 if not exist %JDK% (
     echo EROARE: java nu exista la %JDK%.

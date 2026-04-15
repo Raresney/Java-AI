@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import proiect.alg.HOG;
 import proiect.alg.Kernel;
+import proiect.alg.KernelLinear;
 import proiect.alg.KernelSigmoid;
 import proiect.alg.SMO;
 import proiect.alg.SVMClassifier;
@@ -54,8 +55,10 @@ public final class Antrenare {
         DIR_VECTORI.mkdirs();
         ModelStore.salveaza(set, new File(DIR_VECTORI, "detector_cap_vectori.ser"));
 
-        // Antrenare SMO cu nucleu Sigmoid (cerinta 7).
-        Kernel k = new KernelSigmoid(1.0 / set.X[0].length, 0.0);
+        // Detectorul de cap foloseste kernel Linear: la detectie live precalculam
+        // w si decizia devine un singur dot product (~650x mai rapid decat Sigmoid
+        // cu 650 SV). Cerinta 7 (Sigmoid) ramane satisfacuta de recunoastere.
+        Kernel k = new KernelLinear();
         SMO smo = new SMO(1.0, 1e-3, 5, 42);
         System.out.println("Antrenez SMO cu " + k.name() + "...");
         long t0 = System.currentTimeMillis();

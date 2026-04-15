@@ -3,7 +3,7 @@ REM Compilare proiect. Fara IDE - doar javac din JDK.
 REM Cale JDK detectata pe sistem (Eclipse Adoptium JDK 17).
 
 set JDK="C:\Program Files\Eclipse Adoptium\jdk-17.0.16.8-hotspot\bin\javac.exe"
-set OPENCV_JAR=C:\Users\bighi\Downloads\opencv\build\java\opencv-4100.jar
+set OPENCV_JAR=%USERPROFILE%\Downloads\opencv\build\java\opencv-4100.jar
 set SRC=src
 
 REM Verificam ca javac exista.

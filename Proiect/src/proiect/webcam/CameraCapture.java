@@ -30,9 +30,12 @@ public class CameraCapture {
     /** Index-ul camerei (0 = prima camera detectata de OS). */
     public CameraCapture(int index) {
         this.cap = new VideoCapture(index);
-        // Optional: setam o rezolutie standard ca sa avem ceva de lucru.
-        cap.set(Videoio.CAP_PROP_FRAME_WIDTH, 640);
-        cap.set(Videoio.CAP_PROP_FRAME_HEIGHT, 480);
+        // Rezolutie mica (320x240) pentru detectie live la ~10 FPS:
+        // HOG + sliding window sunt O(H*W*scale_levels), iar reducerea de la
+        // 640x480 la 320x240 da 4x speedup la costul unui detaliu acceptabil
+        // pentru o fata tipica la 0.5-1m de webcam.
+        cap.set(Videoio.CAP_PROP_FRAME_WIDTH, 320);
+        cap.set(Videoio.CAP_PROP_FRAME_HEIGHT, 240);
     }
 
     public boolean esteDeschisa() {
